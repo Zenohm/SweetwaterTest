@@ -9,4 +9,5 @@ class Order extends Model
 {
     protected $table = 'sweetwater_test';
     protected $primaryKey = 'orderid';
+    public $timestamps = false;
 }
