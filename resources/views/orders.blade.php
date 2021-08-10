@@ -23,23 +23,27 @@
 <body class="antialiased">
 <div class="relative flex items-top justify-center min-h-screen sm:items-center py-4 sm:pt-0">
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-        <table class="bg-white">
-            <thead>
-            <th>Id</th>
-            <th>Comments</th>
-            <th>Shipdate Expected</th>
-            </thead>
-            <tbody>
-            @foreach($orders as $order)
-                <tr>
-                    <td>{{$order->orderid}}</td>
-                    <td>{{$order->comments}}</td>
-                    <td>{{$order->shipdate_expected}}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-
+        @foreach($orders as $key => $values)
+        <details>
+            <summary>{{$key}}</summary>
+            <table>
+                <thead>
+                <th>Id</th>
+                <th>Comments</th>
+                <th>Shipdate Expected</th>
+                </thead>
+                <tbody>
+                @foreach($values as $order)
+                    <tr>
+                        <td>{{$order->orderid}}</td>
+                        <td>{{$order->comments}}</td>
+                        <td>{{$order->shipdate_expected}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </details>
+        @endforeach
     </div>
 </div>
 </body>
