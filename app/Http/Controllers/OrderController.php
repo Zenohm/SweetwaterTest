@@ -36,7 +36,7 @@ class OrderController extends Controller
     private function lowercaseCommentsContain($needles): \Closure
     {
         return function ($order) use ($needles) {
-            return Str::contains(Str::lower($order->comments), $needles);
+            return Str::contains(Str::lower($order->comments), array_map('Str::lower', $needles));
         };
     }
 }
