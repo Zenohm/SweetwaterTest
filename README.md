@@ -29,9 +29,11 @@ Breakdown:
 
 # Getting it Running
 
-* Ensure MySQL is setup and running (I used XAMPP)
+* Ensure MySQL is setup and running (I used XAMPP).
 * Create the `sweetwatertest` database.
 * Ensure PHP and Laravel are installed.
-* Run `php artisan migrate` to populate the database and update the shipdates as required by Task 2.
-* Run `php artisan serve`
+* Run `php artisan migrate --seed` to populate the database.
+* Run `php artisan serve`.
 * Navigate to http://localhost:8000 to view the running project.
+* Once you have looked over the data, run `php artisan data:parse-shipdate` to update the ship dates as required by Task 2.
+* Look back over the data to see the ship dates are now populated.
