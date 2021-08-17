@@ -10,20 +10,16 @@ class OrderController extends Controller
     public function index() {
         $orders = Order::all();
 
-        $candy = $orders->filter($this->lowercaseCommentsContain(" candy "))->all();
-        $call = $orders->filter($this->lowercaseCommentsContain(["call me", "contact me", "contact the customer", "do not call", "please call", "no phone call", "no calls"]))->all();
-        $signature = $orders->filter($this->lowercaseCommentsContain(["signature", " sign ", "FedEx", "drop off", "deliver", "leave"]))->all();
-        $referral = $orders->filter($this->lowercaseCommentsContain([" refer", "heard about"]))->all();
-
-        $byOrderId = function($order) {
-            return $order->orderid;
-        };
+        $candy = $orders->filter($this->lowercaseCommentsContain(" candy "));
+        $call = $orders->filter($this->lowercaseCommentsContain(["call me", "contact me", "contact the customer", "do not call", "please call", "no phone call", "no calls"]));
+        $signature = $orders->filter($this->lowercaseCommentsContain(["signature", " sign ", "FedEx", "drop off", "deliver", "leave"]));
+        $referral = $orders->filter($this->lowercaseCommentsContain([" refer", "heard about"]));
 
         $misc = $orders
-            ->filter($this->notIncludedInCollectionBy($byOrderId, $candy))
-            ->filter($this->notIncludedInCollectionBy($byOrderId, $call))
-            ->filter($this->notIncludedInCollectionBy($byOrderId, $signature))
-            ->filter($this->notIncludedInCollectionBy($byOrderId, $referral))
+            ->whereNotIn('orderid', $candy->map->orderid)
+            ->whereNotIn('orderid', $call->map->orderid)
+            ->whereNotIn('orderid', $signature->map->orderid)
+            ->whereNotIn('orderid', $referral->map->orderid)
             ->all()
         ;
 
@@ -35,13 +31,6 @@ class OrderController extends Controller
             "Referral" => $referral,
             "Misc" => $misc
         ]);
-    }
-
-    private function notIncludedInCollectionBy($accessor, $values): \Closure
-    {
-        return function ($order) use ($values, $accessor) {
-            return !collect($values)->map($accessor)->contains($accessor($order));
-        };
     }
 
     private function lowercaseCommentsContain($needles): \Closure
