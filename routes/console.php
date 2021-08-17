@@ -14,10 +14,3 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Artisan::command('data:parse-shipdate', function () {
-    DB::statement('
-UPDATE `sweetwater_test`
-SET shipdate_expected = STR_TO_DATE(RTRIM(SUBSTRING(comments, POSITION("Expected Ship Date: " IN comments) + LENGTH("Expected Ship Date: "), POSITION("Expected Ship Date: " IN comments) + LENGTH("Expected Ship Date: ") + 8 - 1)), "%m/%d/%y")
-WHERE comments LIKE "%Expected Ship Date: %";
-        ');
-})->purpose('Goes through the order table, pulling out the expected ship date from the comments and storing it in the shipdate_expected field');
