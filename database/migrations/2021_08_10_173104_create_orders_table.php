@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('sweetwater_test', function (Blueprint $table) {
             $table->id("orderid");
-            $table->string("comments");
+            $table->text("comments");
             $table->dateTime("shipdate_expected");
         });
     }
