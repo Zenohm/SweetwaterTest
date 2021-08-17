@@ -10,7 +10,7 @@ class OrderController extends Controller
     public function index() {
         $orders = Order::all();
 
-        $candy = $orders->filter($this->lowercaseCommentsContain("candy"));
+        $candy = $orders->filter($this->lowercaseCommentsContain(["candy", "smarties", "bit o honey", "Laffy Taffys"]));
         $call = $orders->filter($this->lowercaseCommentsContain(["call me", "contact me", "contact the customer", "do not call", "please call", "no phone call", "no calls"]));
         $signature = $orders->filter($this->lowercaseCommentsContain(["signature", " sign ", "FedEx", "drop off", "deliver", "leave"]));
         $referral = $orders->filter($this->lowercaseCommentsContain([" refer", "heard about"]));
