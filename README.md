@@ -37,3 +37,4 @@ Breakdown:
 * Navigate to http://localhost:8000 to view the running project.
 * Once you have looked over the data, run `php artisan data:parse-shipdate` to update the ship dates as required by Task 2.
 * Look back over the data to see the ship dates are now populated.
+* To get this scheduled, open a new console and run `php artisan schedule:work` to have the ship dates updated once an hour.
